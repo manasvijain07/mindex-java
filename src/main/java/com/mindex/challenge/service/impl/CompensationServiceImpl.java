@@ -8,7 +8,6 @@
 package com.mindex.challenge.service.impl;
 
 import java.util.List;
-import javax.xml.ws.http.HTTPException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +40,7 @@ public class CompensationServiceImpl implements CompensationService{
 		else
 		{
 			LOG.debug("No such employee found. Please check employee details");
-			throw new HTTPException(400);
+			throw new RuntimeException("No employees found ");
 		}
 		return compensation;
 	}
