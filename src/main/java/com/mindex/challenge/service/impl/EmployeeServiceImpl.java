@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -38,6 +40,19 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         return employee;
+    }
+    
+    @Override
+    public List<Employee> read() {
+        LOG.debug("Creating employee");
+
+        java.util.List<Employee> employeeList = employeeRepository.findAll();
+
+        if (employeeList == null) {
+            throw new RuntimeException("No employees found ");
+        }
+
+        return employeeList;
     }
 
     @Override

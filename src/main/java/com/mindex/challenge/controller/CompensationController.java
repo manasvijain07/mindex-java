@@ -1,5 +1,7 @@
 package com.mindex.challenge.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +36,13 @@ public class CompensationController {
 	    	LOG.debug("Received compensation create request for id [{}]", id);
 
 	        return compensationService.readCompensation(id);
+	    }
+	    
+	    @GetMapping("/compensation")
+	    public List<Compensation> readCompensation()
+	    {
+	    	LOG.debug("Received compensation create request");
+
+	        return compensationService.readCompensation();
 	    }
 }

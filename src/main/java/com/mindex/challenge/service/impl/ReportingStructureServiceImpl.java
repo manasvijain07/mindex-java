@@ -54,12 +54,12 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
     	int count = 0;
     	
     	Employee emp = empRepo.findByEmployeeId(id);
-        
+    	
         if(emp.getDirectReports() != null)
         {
         	count = emp.getDirectReports().size();
         	
-        	for(int i = 0; i < count; i++)
+        	for(int i = 0; i < emp.getDirectReports().size(); i++)
         	{
         		count += getTotalReports(emp.getDirectReports().get(i).getEmployeeId());
         	}

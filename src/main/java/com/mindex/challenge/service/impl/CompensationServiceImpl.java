@@ -7,11 +7,13 @@
 
 package com.mindex.challenge.service.impl;
 
+import java.util.List;
+import javax.xml.ws.http.HTTPException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.mindex.challenge.dao.CompensationRepository;
 import com.mindex.challenge.dao.EmployeeRepository;
 import com.mindex.challenge.data.Compensation;
@@ -39,22 +41,31 @@ public class CompensationServiceImpl implements CompensationService{
 		else
 		{
 			LOG.debug("No such employee found. Please check employee details");
+			throw new HTTPException(400);
 		}
 		return compensation;
 	}
 
 	@Override
 	public Compensation readCompensation(String id) {
-		Compensation comp = null;
-		try
+		Compensation comp = compensationRepo.findByEmployee_EmployeeId(id);
+		if(comp == null)
 		{
-			comp = compensationRepo.findByEmployeeEmployeeId(id);
-		}
-		catch(NullPointerException e)
-		{
-			LOG.debug("No compensation found for [{}]", id);
+			LOG.debug("No compensation found for id - [{}]", id);
 		}
 		return comp;	
+	}
+	
+
+	@Override
+	public List<Compensation> readCompensation() {
+		List<Compensation> comp = compensationRepo.findAll();
+		
+		if(comp == null)
+		{
+			 throw new RuntimeException("No employees found ");
+		}
+		return comp;
 	}
 
 }
